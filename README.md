@@ -1,16 +1,3 @@
-Understood 👍
-I will **not change your wording**, only:
-
-* format it for Markdown
-* add code blocks
-* add the screenshot placeholders
-* fix indentation so it renders correctly on GitHub
-
-Below is your text formatted as a **ready-to-paste `README.md`**.
-
----
-
-````markdown
 # Veridion POC
 
 ## Step 1.
@@ -151,12 +138,13 @@ Repeat **Step 4**.
 
 Not knowing what I should prioritize when verifying this data, I had to do a bit of research and this what I came up with:
 
+````markdown
 Rule 1 - Name match - most important
 Rule 2 - Country match - second most important
 Rule 3 - City match - optional
 Rule 4 - Domain / website / LinkedIn - important if it is a match
 Rule 5 - Industry plausibility - only important if they do not match
-
+````
 For ambiguous cases, **Google is my best friend**.
 
 ---
@@ -259,13 +247,25 @@ Below is a screenshot of it.
 
 ![visual-representation](visual-representation.png)
 
+From the available DB tables I can easily run a query to see the end result, ordered by the confidence level
+```sql
+SELECT v.confidence_level, p.*
+FROM presales_data_sample p
+INNER JOIN veridion_poc_results v ON v.selected_veridion_id = p.veridion_id
+WHERE v.decision_status = "matched"
+ORDER BY FIELD(v.confidence_level, 'high', 'medium', 'low'), v.input_row_key;
 ```
 
----
-
-✅ You can paste this **directly into `README.md`** and GitHub will render it correctly.
 
 ---
+## Improvements
 
-If you want, I can also show you **one small trick that will make your README look much more professional on GitHub** (without changing your text).
-```
+Here is a list of potential improvements to this:
+- database optimization, so it is more scalable
+- more complex algorithms for company name matching
+- more complex algorithms for match scoring
+- OpenAI (or other AI tool) integration for even more automation
+
+## Ending notes
+
+This challenge did not require me to use specific tools so I used what was readily available to me. In this case, PHP, MySQL and ChatGPT. It was the most time consuming challenge I ever did for an interview. Hoping it wasn't in vain.
